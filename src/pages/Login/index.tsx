@@ -1,5 +1,6 @@
-import { Container, ContainerForm, Text, Span, TextFieldStyled, SubTitle, Button, DivContent, Title, DivFiled, DivImage, DivForm } from "./style"
+import { Container, ContainerForm, Text, TextForgot, Span, TextFieldStyled, SubTitle, Button, DivContent, Title, DivFiled, DivForm } from "./style"
 import { useHistory } from "react-router-dom"
+import { Background } from "../../components/Backgound"
 
 const Login = () => {
 
@@ -7,7 +8,7 @@ const Login = () => {
 
     return (
         <Container>
-            <DivImage />
+           <Background />
             <ContainerForm>
                 <DivForm>
                     <DivContent>
@@ -19,6 +20,7 @@ const Login = () => {
                             <Button type="submit">LOGIN</Button>
                         </DivFiled>
                         <Text>Não possui uma conta? <Span onClick={() => history.push("/register")}>Registrar-se</Span></Text>
+                        <TextForgot onClick={() => history.push("/forgot")}>Esqueceu a senha?</TextForgot>
                     </DivContent>
                 </DivForm>
             </ContainerForm>

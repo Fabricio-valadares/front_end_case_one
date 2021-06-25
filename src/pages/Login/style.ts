@@ -7,16 +7,6 @@ export const Container = styled.main`
     height: 100vh;
 `;
 
-export const DivImage = styled.div`
-    width: 100%;
-    height: 100%;
-    background-image: url("./assets/background.jpg");
-    background-repeat: no-repeat;
-    filter: brightness(0.4);
-    background-position: center 15%;
-    background-size: cover;
-`;
-
 export const DivForm = styled.div`
     width: 28vw;
     min-width: 380px;
@@ -92,6 +82,7 @@ export const TextFieldStyled = styled(TextField)`
 
     .MuiInput-formControl {
         margin: 24px 0;
+        font-weight: 300;
     }
     
     .MuiFormLabel-root {
@@ -111,4 +102,13 @@ export const Span = styled.p`
     margin-left: 10px;
     color: #2ea5d5;
     cursor: pointer;
+`;
+
+
+export const TextForgot = styled.p`
+   font-size: 15px;
+   text-align: center;
+   margin-top: 20px;
+   text-decoration: underline;
+   cursor: pointer;
 `;

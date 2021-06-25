@@ -1,5 +1,12 @@
-const Dashboard = () => {
-    return <div>Dashboard</div>
-}
+import { Header } from "../../components/Header";
+import { Container } from "./style";
 
-export { Dashboard }
+const Dashboard = () => {
+  return (
+    <Container>
+      <Header />
+    </Container>
+  );
+};
+
+export { Dashboard };

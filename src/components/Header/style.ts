@@ -50,9 +50,10 @@ export const Logout = styled.div`
   width: 10%;
   height: 10vh;
   font-weight: 400;
-  font-size: 25px;
+  font-size: 19px;
 
   display: flex;
+  cursor: pointer;
   align-items: center;
 `;
 

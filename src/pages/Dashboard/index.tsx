@@ -1,10 +1,16 @@
 import { Header } from "../../components/Header";
-import { Container } from "./style";
+import { Aside } from "../../components/Aside";
+import { ContentDashboard } from "../../components/ContentDashboard";
+import { Container, Content } from "./style";
 
 const Dashboard = () => {
   return (
     <Container>
       <Header />
+      <Content>
+        <Aside />
+        <ContentDashboard />
+      </Content>
     </Container>
   );
 };

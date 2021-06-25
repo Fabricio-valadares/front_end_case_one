@@ -8,4 +8,5 @@ export const Container = styled.div`
     filter: brightness(0.4);
     background-position: center 15%;
     background-size: cover;
+    
 `;

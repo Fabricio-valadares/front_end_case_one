@@ -18,6 +18,12 @@ export const DivForm = styled.div`
     padding: 75px 55px 80px 55px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     border-radius: 20px;
+
+
+    @media (max-width: 406px) {
+        box-shadow: none;
+        padding: 75px 58px 80px 65px;
+    }
 `;
     
 export const ContainerForm = styled.div`
@@ -29,6 +35,10 @@ export const ContainerForm = styled.div`
     justify-content: center;
     position: absolute;
     top: 0;
+    
+    @media (max-width: 406px) {
+        background-color: #fff;
+    }
 `;
 
 export const DivContent = styled.div`

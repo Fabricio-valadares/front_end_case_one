@@ -1,6 +1,6 @@
 export interface IDataRoute {
   exact: boolean;
   path: string;
-  isRestricted: boolean;
+  isRestricted?: boolean;
   component: any;
 }

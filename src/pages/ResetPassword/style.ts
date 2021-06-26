@@ -9,12 +9,12 @@ export const Container = styled.main`
 export const DivForm = styled.div`
   width: 28vw;
   min-width: 380px;
-  height: 70vh;
+  height: 75vh;
   min-height: 77%;
   max-height: 500px;
 
   background-color: #fff;
-  padding: 75px 55px 80px 55px;
+  padding: 40px 55px 80px 55px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 20px;
 
@@ -64,7 +64,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 6px;
   font-size: 15px;
-  margin: 20px 0 10px 0;
+  margin: 15px 0 10px 0;
 
   display: flex;
   align-items: center;
@@ -80,12 +80,12 @@ export const Title = styled.h1`
   color: #03014c;
   font-weight: bold;
   font-size: 32px;
-  margin-bottom: 5px;
+  margin: 20px 0 13px 0;
 `;
 
 export const TextFieldStyled = styled(TextField)`
   .MuiInput-formControl {
-    margin: 24px 0;
+    margin: 16px 0;
     font-weight: 300;
   }
 

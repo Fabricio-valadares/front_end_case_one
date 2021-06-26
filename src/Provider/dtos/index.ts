@@ -5,11 +5,6 @@ export interface IChildren {
 }
 
 export interface IDataContext {
-  auth: boolean;
-  setAuth: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export interface IDataResetContext {
-  tokenReset: string;
-  setTokenReset: React.Dispatch<React.SetStateAction<string>>;
+  stringToken: string;
+  setStringToken: React.Dispatch<React.SetStateAction<string>>;
 }

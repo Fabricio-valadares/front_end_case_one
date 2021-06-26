@@ -24,7 +24,7 @@ import { api } from "../../services/";
 
 const Login = () => {
   const history = useHistory();
-  const { setAuth } = useContext(TokenAuthContext);
+  const { setStringToken } = useContext(TokenAuthContext);
 
   const fieldRequired = "Campo Obrigatporio";
 
@@ -49,7 +49,9 @@ const Login = () => {
     api
       .post("/login", data)
       .then((response) => {
-        setAuth(true);
+        localStorage.setItem("token", JSON.stringify(response.data.token));
+
+        setStringToken(response.data.token);
         history.push("/dashboard");
       })
       .catch((error) => console.log(error));

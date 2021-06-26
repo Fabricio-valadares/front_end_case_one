@@ -4,10 +4,10 @@ import { IChildren, IDataContext } from "../dtos";
 export const TokenAuthContext = createContext<IDataContext>({} as IDataContext);
 
 export const TokenAuthProvider = ({ children }: IChildren) => {
-  const [auth, setAuth] = useState<boolean>(false);
+  const [stringToken, setStringToken] = useState<string>("");
 
   return (
-    <TokenAuthContext.Provider value={{ auth, setAuth }}>
+    <TokenAuthContext.Provider value={{ stringToken, setStringToken }}>
       {children}
     </TokenAuthContext.Provider>
   );

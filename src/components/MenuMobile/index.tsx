@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu, { MenuProps } from "@material-ui/core/Menu";
@@ -6,7 +6,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useHistory } from "react-router-dom";
-import { TokenAuthContext } from "../../Provider/TokenAuth";
 import {
   MdDashboard,
   MdEmail,
@@ -48,7 +47,6 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const MenuMobile = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { setAuth } = useContext(TokenAuthContext);
   const history = useHistory();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -60,7 +58,7 @@ const MenuMobile = () => {
   };
 
   const handleForgot = () => {
-    setAuth(false);
+    localStorage.clear();
     history.push("/");
   };
 

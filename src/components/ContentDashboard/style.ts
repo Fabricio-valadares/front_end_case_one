@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 81%;
+  height: 97%;
 
   @media (max-width: 869px) {
     width: 100%;
@@ -20,9 +21,9 @@ export const Header = styled.div`
 `;
 
 export const Content = styled.div`
+  height: 93%;
   background-color: #f3f6f9;
   display: flex;
-  align-items: center;
   justify-content: center;
 `;
 

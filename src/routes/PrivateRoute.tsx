@@ -1,20 +1,24 @@
 import { Route, Redirect } from "react-router-dom";
-import { useContext } from "react";
 import { IDataRoute } from "./dtos";
-import { TokenAuthContext } from "../Provider/TokenAuth";
 
 const PrivateRoute = ({
   component: Component,
   isRestricted,
   ...rest
 }: IDataRoute) => {
-  const { auth } = useContext(TokenAuthContext);
+  const token = localStorage.getItem("token") || "";
+
+  console.log("Aqui pão", token);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        auth === isRestricted ? <Component {...props} /> : <Redirect to="/" />
+        !!token === isRestricted ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/" />
+        )
       }
     />
   );

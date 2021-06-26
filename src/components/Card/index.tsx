@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RiToolsFill } from "react-icons/ri";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FormUpdate } from "../FormUpdate";
+import { ConfirmationDeleteUser } from "../ConfirmationDeleteUser";
 import ModalFront from "../Modal";
 import {
   Container,
@@ -40,7 +41,7 @@ const Card = () => {
           <FormUpdate setOpen={setOpen} />
         </ModalFront>
         <ModalFront open={openDelete} handleClose={handleCloseDelete}>
-          <h2>Opáveio</h2>
+          <ConfirmationDeleteUser setOpenDelete={setOpenDelete} />
         </ModalFront>
         <TableStyled>
           <HeaderTable>

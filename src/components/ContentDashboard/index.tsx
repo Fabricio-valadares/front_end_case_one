@@ -1,4 +1,5 @@
 import { Container, Header, Content, Text } from "./style";
+import { Card } from "../../components/Card";
 
 const ContentDashboard = () => {
   return (
@@ -6,7 +7,9 @@ const ContentDashboard = () => {
       <Header>
         <Text>Cadastros</Text>
       </Header>
-      <Content></Content>
+      <Content>
+        <Card />
+      </Content>
     </Container>
   );
 };

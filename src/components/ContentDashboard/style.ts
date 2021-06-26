@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 81%;
-  height: 100vh;
+
+  @media (max-width: 869px) {
+    width: 100%;
+  }
 `;
 
 export const Text = styled.p`
@@ -18,4 +21,9 @@ export const Header = styled.div`
 
 export const Content = styled.div`
   background-color: #f3f6f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
+
+export const DivCard = styled.div``;

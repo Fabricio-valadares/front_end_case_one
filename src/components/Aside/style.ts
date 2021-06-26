@@ -1,9 +1,15 @@
 import styled from "styled-components";
+import { MdDashboard, MdEmail, MdShoppingCart } from "react-icons/md";
 
 export const Container = styled.div`
   width: 18.6%;
   height: 100%;
   background-color: #fff;
+  min-width: 210px;
+
+  @media (max-width: 869px) {
+    display: none;
+  }
 `;
 
 export const Title = styled.h1`
@@ -44,10 +50,26 @@ export const Session = styled.div`
   }
 `;
 
-export const DivIcon = styled.div``;
+export const DivIcon = styled.div`
+  &:hover {
+    path {
+      background-color: #5b5881;
+    }
+  }
+`;
 
 export const Text = styled.p`
   padding-left: 15px;
   color: #6a707e;
   font-weight: bold;
+
+  &:hover {
+    color: #837cf4;
+  }
+`;
+
+export const MdDashboardStyled = styled(MdDashboard)`
+  &:hover {
+    color: #837cf4;
+  }
 `;

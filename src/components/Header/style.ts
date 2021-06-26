@@ -21,6 +21,7 @@ export const DivContainer = styled.div`
 export const Logo = styled.div`
   width: 31%;
   height: 12vh;
+  min-width: 210px;
   background-color: #837cf4;
   color: #fff;
   font-weight: bold;
@@ -55,6 +56,10 @@ export const Logout = styled.div`
   display: flex;
   cursor: pointer;
   align-items: center;
+
+  @media (max-width: 869px) {
+    display: none;
+  }
 `;
 
 export const FieldSearch = styled.div`
@@ -66,6 +71,10 @@ export const FieldSearch = styled.div`
   justify-content: space-between;
   background-color: #f3f3f3;
   border-radius: 5px;
+
+  @media (max-width: 660px) {
+    display: none;
+  }
 `;
 
 export const DivIcon = styled.div`
@@ -75,4 +84,12 @@ export const DivIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const DivMobile = styled.div`
+  display: none;
+  @media (max-width: 869px) {
+    display: block;
+    margin-right: 10px;
+  }
 `;

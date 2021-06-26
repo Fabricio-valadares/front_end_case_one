@@ -6,8 +6,10 @@ import {
   Logo,
   Search,
   Logout,
+  DivMobile,
 } from "./style";
 import { FiSearch } from "react-icons/fi";
+import MenuMobile from "../MenuMobile";
 
 const Header = () => {
   return (
@@ -21,6 +23,9 @@ const Header = () => {
           <Search placeholder="Search..."></Search>
         </FieldSearch>
       </DivContainer>
+      <DivMobile>
+        <MenuMobile />
+      </DivMobile>
       <Logout>Logout</Logout>
     </Container>
   );

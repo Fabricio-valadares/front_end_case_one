@@ -1,0 +1,14 @@
+import { createContext, useState } from "react";
+import { IChildren, IDataContext } from "../dtos";
+
+export const TokenAuthContext = createContext<IDataContext>({} as IDataContext);
+
+export const TokenAuthProvider = ({ children }: IChildren) => {
+  const [auth, setAuth] = useState<string>("");
+
+  return (
+    <TokenAuthContext.Provider value={{ auth, setAuth }}>
+      {children}
+    </TokenAuthContext.Provider>
+  );
+};

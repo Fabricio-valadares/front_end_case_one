@@ -48,7 +48,7 @@ export const DivContent = styled.div`
   justify-content: space-between;
 `;
 
-export const DivFiled = styled.div`
+export const DivFiled = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;

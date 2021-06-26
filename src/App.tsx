@@ -1,7 +1,12 @@
-import { Routes } from "./routes"
+import { Routes } from "./routes";
+import { Provider } from "./Provider";
 
 const App = () => {
-  return <Routes />
-}
+  return (
+    <Provider>
+      <Routes />
+    </Provider>
+  );
+};
 
 export default App;

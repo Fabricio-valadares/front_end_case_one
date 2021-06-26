@@ -1,7 +1,6 @@
 export interface IDataRoutePublic {
-    exact: string;
-    path: string;
-    pe: boolean;
-    components: any;
+  exact: string;
+  path: string;
+  isRestricted: boolean;
+  component: any;
 }
-

@@ -1,5 +1,5 @@
-export interface IDataRoutePublic {
-  exact: string;
+export interface IDataRoute {
+  exact: boolean;
   path: string;
   isRestricted: boolean;
   component: any;

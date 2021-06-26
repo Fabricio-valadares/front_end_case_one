@@ -5,6 +5,6 @@ export interface IChildren {
 }
 
 export interface IDataContext {
-  auth: string;
-  setAuth: React.Dispatch<React.SetStateAction<string>>;
+  auth: boolean;
+  setAuth: React.Dispatch<React.SetStateAction<boolean>>;
 }

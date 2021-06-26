@@ -16,6 +16,7 @@ import { IDataForm } from "./dtos";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { api } from "../../services/";
 
 const Register = () => {
   const history = useHistory();
@@ -24,11 +25,11 @@ const Register = () => {
 
   const schema = yup.object().shape({
     name: yup.string().required(fieldRequired),
-    email: yup.string().email().required(fieldRequired),
+    email: yup.string().email("E-mail invalido").required(fieldRequired),
     password: yup.string().required(fieldRequired),
     confirmationPassword: yup
       .string()
-      .oneOf([yup.ref("password")])
+      .oneOf([yup.ref("password")], "Senha não compativel")
       .required(fieldRequired),
   });
 
@@ -43,7 +44,19 @@ const Register = () => {
 
   const dataSubmit = (data: IDataForm) => {
     reset();
-    console.log(data);
+
+    const dataFinal = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+
+    api
+      .post("/register", dataFinal)
+      .then((response) => {
+        history.push("/");
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -59,23 +72,27 @@ const Register = () => {
                 id="standard-basic"
                 label="Name"
               />
+              <p>{errors.name?.message}</p>
               <TextFieldStyled
                 {...register("email")}
                 id="standard-basic"
                 label="E-mail"
               />
+              <p>{errors.email?.message}</p>
               <TextFieldStyled
                 {...register("password")}
                 id="standard-basic"
                 label="Senha"
                 type="password"
               />
+              <p>{errors.password?.message}</p>
               <TextFieldStyled
                 {...register("confirmationPassword")}
                 id="standard-basic"
                 label="Confirmação Senha"
                 type="password"
               />
+              <p>{errors.confirmationPassword?.message}</p>
               <Button type="submit">CADASTRAR</Button>
             </DivFiled>
             <Text>

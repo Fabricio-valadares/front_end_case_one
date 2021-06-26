@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu, { MenuProps } from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import { useHistory } from "react-router-dom";
+import { TokenAuthContext } from "../../Provider/TokenAuth";
 import {
   MdDashboard,
   MdEmail,
@@ -46,6 +48,8 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const MenuMobile = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { setAuth } = useContext(TokenAuthContext);
+  const history = useHistory();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -53,6 +57,11 @@ const MenuMobile = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleForgot = () => {
+    setAuth(false);
+    history.push("/");
   };
 
   return (
@@ -91,7 +100,7 @@ const MenuMobile = () => {
           </ListItemIcon>
           <ListItemText primary="Funçao 3" />
         </StyledMenuItem>
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleForgot}>
           <ListItemIcon>
             <MdClose size={25} />
           </ListItemIcon>

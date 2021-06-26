@@ -20,6 +20,7 @@ import { IDataForm } from "./dtos";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { api } from "../../services/";
 
 const Login = () => {
   const history = useHistory();
@@ -44,6 +45,14 @@ const Login = () => {
   const dataSubmit = (data: IDataForm) => {
     reset();
     console.log(data);
+
+    api
+      .post("/login", data)
+      .then((response) => {
+        setAuth(true);
+        history.push("/dashboard");
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -60,12 +69,14 @@ const Login = () => {
                 id="standard-basic"
                 label="Email"
               />
+              <p>{errors.email?.message}</p>
               <TextFieldStyled
                 {...register("password")}
                 id="standard-basic"
                 label="Senha"
                 type="password"
               />
+              <p>{errors.password?.message}</p>
               <Button type="submit">LOGIN</Button>
             </DivFiled>
             <Text>

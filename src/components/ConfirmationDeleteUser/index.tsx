@@ -29,7 +29,6 @@ const ConfirmationDeleteUser = ({ setOpenDelete, userId, listUser }: IData) => {
       })
       .then((response) => {
         listUser();
-        console.log(response);
       })
       .catch((error) => console.log(error));
   };

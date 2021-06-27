@@ -15,12 +15,10 @@ const ContentDashboard = () => {
 
     const { sub } = jwt_decode<IDataSub>(stringToken);
 
-    console.log("sim ", sub);
     api
       .post("/user/verify", { id: sub })
       .then((response) => {
         setIsAdmin(response.data.verify);
-        console.log("UseEF", response);
       })
       .catch((error) => console.log(error));
   }, []);

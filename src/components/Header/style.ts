@@ -65,6 +65,7 @@ export const Logout = styled.div`
 export const FieldSearch = styled.div`
   width: 38%;
   height: 8vh;
+  padding: 0 20px 0 0;
   margin-left: 40px;
   display: flex;
   align-items: center;
@@ -80,6 +81,7 @@ export const FieldSearch = styled.div`
 export const DivIcon = styled.div`
   width: 30%;
   height: 8vh;
+  min-width: 48px;
 
   display: flex;
   align-items: center;

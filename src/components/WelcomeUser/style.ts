@@ -40,6 +40,10 @@ export const DivText = styled.div`
 
 export const Title = styled.p`
   width: 180px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const DivImage = styled.div`

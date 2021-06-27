@@ -10,12 +10,11 @@ import {
   Span,
 } from "./style";
 import { api } from "../../services";
-import { useEffect } from "react";
-import { IDataUser } from "./dtos";
-import { useState } from "react";
+import { useEffect, useContext } from "react";
+import { ChangeContext } from "../../Provider/ChangeName";
 
 const WelcomeUser = () => {
-  const [dataUser, setDataUser] = useState<IDataUser>({} as IDataUser);
+  const { dataUserContext, setDataUserContext } = useContext(ChangeContext);
 
   const stringToken = localStorage.getItem("token") || "";
 
@@ -30,7 +29,7 @@ const WelcomeUser = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        setDataUser(response.data.user);
+        setDataUserContext(response.data.user);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -40,7 +39,7 @@ const WelcomeUser = () => {
       <DivContent>
         <DivText>
           <Title>
-            Bem vindo, <Span>{dataUser.name}</Span>
+            Bem vindo, <Span>{dataUserContext.name}</Span>
           </Title>
         </DivText>
         <DivImage>

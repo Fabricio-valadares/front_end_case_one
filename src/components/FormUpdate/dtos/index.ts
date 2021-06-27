@@ -6,6 +6,6 @@ export interface IDataForm {
 
 export interface IData {
   user_id: string;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen?: any;
   listUser?: any;
 }

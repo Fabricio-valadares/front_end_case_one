@@ -8,8 +8,6 @@ const PrivateRoute = ({
 }: IDataRoute) => {
   const token = localStorage.getItem("token") || "";
 
-  console.log("Aqui pão", token);
-
   return (
     <Route
       {...rest}

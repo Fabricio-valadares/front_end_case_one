@@ -7,20 +7,23 @@ import {
   Title,
   DivTitle,
   MdDashboardStyled,
+  DivText,
 } from "./style";
 import { MdEmail, MdShoppingCart } from "react-icons/md";
 import { api } from "../../services";
 import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
-import { IDataSub, IDataUser } from "./dtos";
+import { IDataSub } from "./dtos";
 import { useState } from "react";
 import ModalFront from "../Modal";
 import { FormUpdate } from "../FormUpdate";
+import { useContext } from "react";
+import { ChangeContext } from "../../Provider/ChangeName";
 
 const Aside = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
-  const [dataUser, setDataUser] = useState<IDataUser>({} as IDataUser);
+  const { dataUserContext, setDataUserContext } = useContext(ChangeContext);
 
   const stringToken = localStorage.getItem("token") || "";
 
@@ -52,7 +55,7 @@ const Aside = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        setDataUser(response.data.user);
+        setDataUserContext(response.data.user);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -60,10 +63,14 @@ const Aside = () => {
   return (
     <Container>
       <ModalFront open={open} handleClose={handleClose}>
-        <FormUpdate setOpen={setOpen} user_id={sub} />
+        <FormUpdate user_id={sub} setOpen={setOpen} />
       </ModalFront>
       <DivTitle>
-        {isAdmin ? <Title>NAVEGAÇÃO</Title> : <div>{dataUser.email}</div>}
+        {isAdmin ? (
+          <Title>NAVEGAÇÃO</Title>
+        ) : (
+          <DivText>{dataUserContext.email}</DivText>
+        )}
       </DivTitle>
       {isAdmin ? (
         <DivSession>

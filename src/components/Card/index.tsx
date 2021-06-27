@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { RiToolsFill } from "react-icons/ri";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FormUpdate } from "../FormUpdate";
@@ -15,10 +15,12 @@ import {
 } from "./style";
 import { api } from "../../services";
 import { IDataUser } from "./dtos";
+import { TextInputContext } from "../../Provider/TextInput";
 
 const Card = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>("");
+  const { textInput } = useContext(TextInputContext);
 
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [dataUser, setDataUser] = useState<IDataUser[]>([]);
@@ -53,7 +55,6 @@ const Card = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        console.log(response);
         setDataUser(response.data);
       })
       .catch((error) => console.log(error));
@@ -83,30 +84,35 @@ const Card = () => {
             <Title>E-mail</Title>
             <Title>Data de cadastro</Title>
           </HeaderTable>
-          {dataUser.map((element, index) => (
-            <LineTable>
-              <DataLine>{index + 1}</DataLine>
-              <DataLine>{element.name}</DataLine>
-              <DataLine>{element.email}</DataLine>
-              <DataLine>23/06/2021</DataLine>
-              <DataLine>
-                <RiToolsFill
-                  style={{ cursor: "pointer" }}
-                  color="#837cf4"
-                  size={28}
-                  onClick={() => handleOpen(element.id)}
-                />
-              </DataLine>
-              <DataLine>
-                <AiOutlineCloseCircle
-                  style={{ cursor: "pointer" }}
-                  color="#837cf4"
-                  size={28}
-                  onClick={() => handleOpenDelete(element.id)}
-                />
-              </DataLine>
-            </LineTable>
-          ))}
+          {dataUser
+            .filter((user) =>
+              user.name?.toLowerCase().includes(textInput.toLowerCase())
+            )
+            .sort((a, b) => a.id.length - b.id.length)
+            .map((element, index) => (
+              <LineTable>
+                <DataLine>{index + 1}</DataLine>
+                <DataLine>{element.name}</DataLine>
+                <DataLine>{element.email}</DataLine>
+                <DataLine>23/06/2021</DataLine>
+                <DataLine>
+                  <RiToolsFill
+                    style={{ cursor: "pointer" }}
+                    color="#837cf4"
+                    size={28}
+                    onClick={() => handleOpen(element.id)}
+                  />
+                </DataLine>
+                <DataLine>
+                  <AiOutlineCloseCircle
+                    style={{ cursor: "pointer" }}
+                    color="#837cf4"
+                    size={28}
+                    onClick={() => handleOpenDelete(element.id)}
+                  />
+                </DataLine>
+              </LineTable>
+            ))}
         </TableStyled>
       </DivMobile>
     </Container>

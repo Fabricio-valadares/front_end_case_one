@@ -37,13 +37,9 @@ const ForgotPassword = () => {
 
   const dataSubmit = (data: IDataForgot) => {
     reset();
-    console.log(data);
-
     api
       .post("/user/forgot", data)
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => console.log(error));
   };
 

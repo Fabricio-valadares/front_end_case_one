@@ -10,7 +10,7 @@ import {
   DivFiled,
   DivForm,
 } from "./style";
-import { useHistory, useParams, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Background } from "../../components/Backgound";
 import { IDataForm } from "./dtos";
 import { useForm } from "react-hook-form";

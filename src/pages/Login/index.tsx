@@ -44,7 +44,6 @@ const Login = () => {
 
   const dataSubmit = (data: IDataForm) => {
     reset();
-    console.log(data);
 
     api
       .post("/login", data)

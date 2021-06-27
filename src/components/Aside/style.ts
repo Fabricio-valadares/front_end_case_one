@@ -73,3 +73,14 @@ export const MdDashboardStyled = styled(MdDashboard)`
     color: #837cf4;
   }
 `;
+
+export const DivText = styled.div`
+  background-color: #e5e0fd;
+  color: #837cf4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  width: 95%;
+  height: 30px;
+`;

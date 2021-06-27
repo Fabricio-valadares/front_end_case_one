@@ -13,9 +13,12 @@ import { IDataForm, IData } from "./dtos";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useContext } from "react";
+import { ChangeContext } from "../../Provider/ChangeName";
 
 const FormUpdate = ({ setOpen, user_id, listUser }: IData) => {
   const stringToken = localStorage.getItem("token") || "";
+  const { setDataUserContext } = useContext(ChangeContext);
 
   const token = stringToken
     .split("")
@@ -54,7 +57,7 @@ const FormUpdate = ({ setOpen, user_id, listUser }: IData) => {
       })
       .then((response) => {
         listUser();
-        console.log(response);
+        setDataUserContext(dataFinal);
       })
       .catch((error) => console.log(error));
   };

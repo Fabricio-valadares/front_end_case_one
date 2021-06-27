@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RiToolsFill } from "react-icons/ri";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FormUpdate } from "../FormUpdate";
@@ -13,35 +13,68 @@ import {
   DataLine,
   DivMobile,
 } from "./style";
+import { api } from "../../services";
+import { IDataUser } from "./dtos";
 
 const Card = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>("");
 
-  const handleOpen = () => {
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [dataUser, setDataUser] = useState<IDataUser[]>([]);
+  const stringToken = localStorage.getItem("token") || "";
+
+  const token = stringToken
+    .split("")
+    .filter((word) => word !== '"')
+    .join("");
+
+  const handleOpen = (user: string) => {
     setOpen(true);
+    setUserId(user);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleOpenDelete = () => {
+  const handleOpenDelete = (user: string) => {
     setOpenDelete(true);
+    setUserId(user);
   };
 
   const handleCloseDelete = () => {
     setOpenDelete(false);
   };
 
+  const listUser = () => {
+    api
+      .get("/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        setDataUser(response.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    listUser();
+  }, []);
+
   return (
     <Container>
       <DivMobile>
         <ModalFront open={open} handleClose={handleClose}>
-          <FormUpdate setOpen={setOpen} />
+          <FormUpdate setOpen={setOpen} user_id={userId} listUser={listUser} />
         </ModalFront>
         <ModalFront open={openDelete} handleClose={handleCloseDelete}>
-          <ConfirmationDeleteUser setOpenDelete={setOpenDelete} />
+          <ConfirmationDeleteUser
+            setOpenDelete={setOpenDelete}
+            userId={userId}
+            listUser={listUser}
+          />
         </ModalFront>
         <TableStyled>
           <HeaderTable>
@@ -50,28 +83,30 @@ const Card = () => {
             <Title>E-mail</Title>
             <Title>Data de cadastro</Title>
           </HeaderTable>
-          <LineTable>
-            <DataLine>01</DataLine>
-            <DataLine>Bitcoin</DataLine>
-            <DataLine>example@example.com</DataLine>
-            <DataLine>23/06/2021</DataLine>
-            <DataLine>
-              <RiToolsFill
-                style={{ cursor: "pointer" }}
-                color="#837cf4"
-                size={28}
-                onClick={handleOpen}
-              />
-            </DataLine>
-            <DataLine>
-              <AiOutlineCloseCircle
-                style={{ cursor: "pointer" }}
-                color="#837cf4"
-                size={28}
-                onClick={handleOpenDelete}
-              />
-            </DataLine>
-          </LineTable>
+          {dataUser.map((element, index) => (
+            <LineTable>
+              <DataLine>{index + 1}</DataLine>
+              <DataLine>{element.name}</DataLine>
+              <DataLine>{element.email}</DataLine>
+              <DataLine>23/06/2021</DataLine>
+              <DataLine>
+                <RiToolsFill
+                  style={{ cursor: "pointer" }}
+                  color="#837cf4"
+                  size={28}
+                  onClick={() => handleOpen(element.id)}
+                />
+              </DataLine>
+              <DataLine>
+                <AiOutlineCloseCircle
+                  style={{ cursor: "pointer" }}
+                  color="#837cf4"
+                  size={28}
+                  onClick={() => handleOpenDelete(element.id)}
+                />
+              </DataLine>
+            </LineTable>
+          ))}
         </TableStyled>
       </DivMobile>
     </Container>

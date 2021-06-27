@@ -1,8 +1,5 @@
-export interface IDataSub {
-  sub: string;
-}
-
 export interface IDataUser {
+  id: string;
   name: string;
   email: string;
 }

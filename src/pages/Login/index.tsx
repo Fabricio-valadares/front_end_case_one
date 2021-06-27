@@ -49,6 +49,8 @@ const Login = () => {
     api
       .post("/login", data)
       .then((response) => {
+        localStorage.clear();
+
         localStorage.setItem("token", JSON.stringify(response.data.token));
 
         setStringToken(response.data.token);

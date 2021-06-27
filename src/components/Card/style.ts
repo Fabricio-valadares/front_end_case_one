@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 97%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 `;
 
@@ -40,7 +40,7 @@ export const DataLine = styled.td`
 
 export const DivMobile = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
 
   @media (max-width: 660px) {
     overflow-x: auto;

@@ -11,12 +11,29 @@ import {
   ButtonTwo,
   DivText,
 } from "./style";
+import { IData } from "./dtos";
+import { api } from "../../services";
 
-interface IData {
-  setOpenDelete: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const ConfirmationDeleteUser = ({ setOpenDelete, userId, listUser }: IData) => {
+  const stringToken = localStorage.getItem("token") || "";
 
-const ConfirmationDeleteUser = ({ setOpenDelete }: IData) => {
+  const token = stringToken
+    .split("")
+    .filter((word) => word !== '"')
+    .join("");
+
+  const deleteUserFinal = () => {
+    api
+      .delete(`/user/delete/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        listUser();
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <ContainerForm>
       <DivForm>
@@ -29,8 +46,8 @@ const ConfirmationDeleteUser = ({ setOpenDelete }: IData) => {
               <Text>Você realmente deseja excluir o usuário?</Text>
             </DivText>
             <DivBTN>
-              <ButtonOne>CONFIRMAR</ButtonOne>
-              <ButtonTwo>NÃO</ButtonTwo>
+              <ButtonOne onClick={deleteUserFinal}>CONFIRMAR</ButtonOne>
+              <ButtonTwo onClick={() => setOpenDelete(false)}>NÃO</ButtonTwo>
             </DivBTN>
           </DivButton>
         </DivContent>

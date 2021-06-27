@@ -10,32 +10,60 @@ import {
 } from "./style";
 import { MdEmail, MdShoppingCart } from "react-icons/md";
 import { api } from "../../services";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
-import { TokenAuthContext } from "../../Provider/TokenAuth";
-import { IDataSub } from "./dtos";
+import { IDataSub, IDataUser } from "./dtos";
 import { useState } from "react";
+import ModalFront from "../Modal";
+import { FormUpdate } from "../FormUpdate";
 
 const Aside = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [dataUser, setDataUser] = useState<IDataUser>({} as IDataUser);
+
+  const stringToken = localStorage.getItem("token") || "";
+
+  const token = stringToken
+    .split("")
+    .filter((word) => word !== '"')
+    .join("");
+
+  const { sub } = jwt_decode<IDataSub>(stringToken);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
-    const stringToken = localStorage.getItem("token") || "";
-
-    const { sub } = jwt_decode<IDataSub>(stringToken);
-
     api
       .post("/user/verify", { id: sub })
       .then((response) => {
         setIsAdmin(response.data.verify);
       })
       .catch((error) => console.log(error));
+
+    api
+      .get("/user/listone", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setDataUser(response.data.user);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   return (
     <Container>
+      <ModalFront open={open} handleClose={handleClose}>
+        <FormUpdate setOpen={setOpen} user_id={sub} />
+      </ModalFront>
       <DivTitle>
-        {isAdmin ? <Title>NAVEGAÇÃO</Title> : <div>example@email.com</div>}
+        {isAdmin ? <Title>NAVEGAÇÃO</Title> : <div>{dataUser.email}</div>}
       </DivTitle>
       {isAdmin ? (
         <DivSession>
@@ -60,7 +88,7 @@ const Aside = () => {
         </DivSession>
       ) : (
         <DivSession>
-          <Session>
+          <Session onClick={handleOpen}>
             <DivIcon>
               <MdDashboardStyled size={24} color="#6A707E" />
             </DivIcon>

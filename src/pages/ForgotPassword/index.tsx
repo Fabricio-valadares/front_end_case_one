@@ -17,10 +17,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services";
+import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
 
 const ForgotPassword = () => {
   const history = useHistory();
-  const fieldRequired = "Campo Obrigatporio";
+  const [error, setError] = useState(false);
+  const [valid, setValid] = useState(false);
+
+  const fieldRequired = "Campo Obrigatório";
 
   const schema = yup.object().shape({
     email: yup.string().email().required(fieldRequired),
@@ -39,9 +44,41 @@ const ForgotPassword = () => {
     reset();
     api
       .post("/user/forgot", data)
-      .then((response) => {})
-      .catch((error) => console.log(error));
+      .then((response) => {
+        setValid(true);
+      })
+      .catch((error) => {
+        setError(true);
+        console.log(error);
+      });
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(`😵 Error no pedido`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setError(false);
+    }
+    if (valid) {
+      toast.success(`Email enviado com sucesso !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setValid(false);
+    }
+  }, [error, valid]);
 
   return (
     <Container>
@@ -61,7 +98,9 @@ const ForgotPassword = () => {
             </DivFiled>
             <Text>
               Não possui uma conta?{" "}
-              <Span onClick={() => history.push("/")}>Registrar-se</Span>
+              <Span onClick={() => history.push("/register")}>
+                Registrar-se
+              </Span>
             </Text>
           </DivContent>
         </DivForm>

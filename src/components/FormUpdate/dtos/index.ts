@@ -8,4 +8,5 @@ export interface IData {
   user_id: string;
   setOpen?: any;
   listUser?: any;
+  nameUser?: any;
 }

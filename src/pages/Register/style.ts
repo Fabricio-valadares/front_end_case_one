@@ -10,7 +10,7 @@ export const DivForm = styled.div`
   width: 28vw;
   min-width: 380px;
   height: 75vh;
-  min-height: 77%;
+  min-height: 84%;
   max-height: 500px;
 
   background-color: #fff;

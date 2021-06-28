@@ -17,9 +17,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 const ResetPassword = () => {
   const history = useHistory();
+  const [error, setError] = useState(false);
+  const [valid, setValid] = useState(false);
+
   const { search } = useLocation();
 
   const [, token] = search.split("=");
@@ -28,7 +33,7 @@ const ResetPassword = () => {
     history.push("/");
   }
 
-  const fieldRequired = "Campo Obrigatporio";
+  const fieldRequired = "Campo Obrigatório";
 
   const schema = yup.object().shape({
     password: yup.string().required(fieldRequired),
@@ -58,10 +63,42 @@ const ResetPassword = () => {
     api
       .post("/user/reset", dataFinal)
       .then((response) => {
+        setValid(true);
+        console.log("vaquinha");
         history.push("/");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setError(true);
+        console.log(error);
+      });
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(`😵 Error ao atualizar senha`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setError(false);
+    }
+    if (valid) {
+      toast.success(`Senha atualizada com sucesso !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setValid(false);
+    }
+  }, [error, valid]);
 
   return (
     <Container>

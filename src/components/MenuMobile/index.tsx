@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu, { MenuProps } from "@material-ui/core/Menu";
@@ -13,9 +13,13 @@ import {
   MdShoppingCart,
   MdDehaze,
   MdClose,
+  MdAssignment,
 } from "react-icons/md";
 import { IDataSub } from "./dtos";
 import { api } from "../../services";
+import ModalFront from "../Modal";
+import { FormUpdate } from "../FormUpdate";
+import { ChangeContext } from "../../Provider/ChangeName";
 
 const StyledMenu = withStyles({
   paper: {
@@ -50,7 +54,11 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const MenuMobile = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { setDataUserContext } = useContext(ChangeContext);
+
   const [isAdmin, setIsAdmin] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+
   const history = useHistory();
 
   const stringToken = localStorage.getItem("token") || "";
@@ -77,6 +85,15 @@ const MenuMobile = () => {
   const handleForgot = () => {
     localStorage.clear();
     history.push("/");
+  };
+
+  const handleOpenModel = () => {
+    setOpen(true);
+    handleClose();
+  };
+
+  const handleCloseModel = () => {
+    setOpen(false);
   };
 
   return (
@@ -131,6 +148,19 @@ const MenuMobile = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
+          <ModalFront open={open} handleClose={handleCloseModel}>
+            <FormUpdate
+              setOpen={setOpen}
+              user_id={sub}
+              nameUser={setDataUserContext}
+            />
+          </ModalFront>
+          <StyledMenuItem onClick={handleOpenModel}>
+            <ListItemIcon>
+              <MdAssignment size={25} />
+            </ListItemIcon>
+            <ListItemText primary="Editar Perfil" />
+          </StyledMenuItem>
           <StyledMenuItem onClick={handleForgot}>
             <ListItemIcon>
               <MdClose size={25} />

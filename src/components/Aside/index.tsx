@@ -63,7 +63,11 @@ const Aside = () => {
   return (
     <Container>
       <ModalFront open={open} handleClose={handleClose}>
-        <FormUpdate user_id={sub} setOpen={setOpen} />
+        <FormUpdate
+          user_id={sub}
+          setOpen={setOpen}
+          nameUser={setDataUserContext}
+        />
       </ModalFront>
       <DivTitle>
         {isAdmin ? (

@@ -17,15 +17,20 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const [error, setError] = useState(false);
+  const [valid, setValid] = useState(false);
+
   const history = useHistory();
 
-  const fieldRequired = "Campo Obrigatporio";
+  const fieldRequired = "Campo Obrigatório";
 
   const schema = yup.object().shape({
     name: yup.string().required(fieldRequired),
-    email: yup.string().email("E-mail invalido").required(fieldRequired),
+    email: yup.string().email("E-mail inválido").required(fieldRequired),
     password: yup.string().required(fieldRequired),
     confirmationPassword: yup
       .string()
@@ -54,10 +59,41 @@ const Register = () => {
     api
       .post("/register", dataFinal)
       .then((response) => {
+        setValid(true);
         history.push("/");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setError(true);
+      });
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(`😵 Error ao cadastrar`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setError(false);
+    }
+    if (valid) {
+      toast.success(`Cadastro efetuado com sucesso !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setValid(false);
+    }
+  }, [error, valid]);
 
   return (
     <Container>

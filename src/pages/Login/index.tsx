@@ -14,19 +14,22 @@ import {
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { Background } from "../../components/Backgound";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TokenAuthContext } from "../../Provider/TokenAuth";
 import { IDataForm } from "./dtos";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const history = useHistory();
   const { setStringToken } = useContext(TokenAuthContext);
+  const [error, setError] = useState(false);
+  const [valid, setValid] = useState(false);
 
-  const fieldRequired = "Campo Obrigatporio";
+  const fieldRequired = "Campo Obrigatório";
 
   const schema = yup.object().shape({
     email: yup.string().email().required(fieldRequired),
@@ -52,11 +55,42 @@ const Login = () => {
 
         localStorage.setItem("token", JSON.stringify(response.data.token));
 
+        setValid(true);
         setStringToken(response.data.token);
         history.push("/dashboard");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setError(true);
+      });
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(`😵 Email/CPF Inválido `, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setError(false);
+    }
+    if (valid) {
+      toast.dark(`🚀 Seja bem-vindo`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setValid(false);
+    }
+  }, [error, valid]);
 
   return (
     <Container>

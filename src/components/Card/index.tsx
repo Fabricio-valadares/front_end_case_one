@@ -4,6 +4,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FormUpdate } from "../FormUpdate";
 import { ConfirmationDeleteUser } from "../ConfirmationDeleteUser";
 import ModalFront from "../Modal";
+import { format } from "date-fns";
 import {
   Container,
   TableStyled,
@@ -94,7 +95,9 @@ const Card = () => {
                 <DataLine>{index + 1}</DataLine>
                 <DataLine>{element.name}</DataLine>
                 <DataLine>{element.email}</DataLine>
-                <DataLine>23/06/2021</DataLine>
+                <DataLine>
+                  {format(new Date(element.created_at), "MM/dd/yyyy")}
+                </DataLine>
                 <DataLine>
                   <RiToolsFill
                     style={{ cursor: "pointer" }}

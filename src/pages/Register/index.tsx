@@ -31,6 +31,7 @@ const Register = () => {
   const schema = yup.object().shape({
     name: yup.string().required(fieldRequired),
     email: yup.string().email("E-mail inválido").required(fieldRequired),
+    cpf: yup.string().required(fieldRequired),
     password: yup.string().required(fieldRequired),
     confirmationPassword: yup
       .string()
@@ -53,6 +54,7 @@ const Register = () => {
     const dataFinal = {
       name: data.name,
       email: data.email,
+      cpf: data.cpf,
       password: data.password,
     };
 
@@ -113,6 +115,12 @@ const Register = () => {
                 {...register("email")}
                 id="standard-basic"
                 label="E-mail"
+              />
+              <p>{errors.email?.message}</p>
+              <TextFieldStyled
+                {...register("cpf")}
+                id="standard-basic"
+                label="CPF"
               />
               <p>{errors.email?.message}</p>
               <TextFieldStyled

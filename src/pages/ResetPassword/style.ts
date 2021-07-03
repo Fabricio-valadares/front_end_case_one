@@ -106,4 +106,8 @@ export const Span = styled.p`
   margin-left: 10px;
   color: #2ea5d5;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

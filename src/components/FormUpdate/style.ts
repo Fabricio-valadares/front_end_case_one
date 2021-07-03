@@ -4,14 +4,15 @@ import { TextField } from "@material-ui/core";
 export const DivForm = styled.div`
   width: 28vw;
   min-width: 380px;
-  height: 100vh;
-  min-height: 91%;
-  max-height: 536px;
+  height: 84vh;
+  min-height: 84%;
+  max-height: 600px;
 
   background-color: #fff;
   padding: 48px 55px 80px 55px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 20px;
+  overflow-y: auto;
 
   @media (max-width: 420px) {
     min-width: 296px;
@@ -74,7 +75,7 @@ export const SubTitle = styled.p`
 
 export const TextFieldStyled = styled(TextField)`
   .MuiInput-formControl {
-    margin: 24px 0;
+    margin: 18px 0;
     font-weight: 300;
   }
 

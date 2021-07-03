@@ -57,6 +57,10 @@ export const Logout = styled.div`
   cursor: pointer;
   align-items: center;
 
+  &:hover {
+    text-decoration: underline;
+  }
+
   @media (max-width: 869px) {
     display: none;
   }

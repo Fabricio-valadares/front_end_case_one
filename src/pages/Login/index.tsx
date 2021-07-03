@@ -32,7 +32,7 @@ const Login = () => {
   const fieldRequired = "Campo Obrigatório";
 
   const schema = yup.object().shape({
-    email: yup.string().email().required(fieldRequired),
+    emailOrCPF: yup.string().required(fieldRequired),
     password: yup.string().required(fieldRequired),
   });
 
@@ -102,9 +102,9 @@ const Login = () => {
             <SubTitle>O seu passaporte para o futuro.</SubTitle>
             <DivFiled onSubmit={handleSubmit(dataSubmit)}>
               <TextFieldStyled
-                {...register("email")}
+                {...register("emailOrCPF")}
                 id="standard-basic"
-                label="Email"
+                label="Email/CPF"
               />
               <p>{errors.email?.message}</p>
               <TextFieldStyled

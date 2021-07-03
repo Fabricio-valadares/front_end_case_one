@@ -1,5 +1,19 @@
 import styled from "styled-components";
 import { TextField } from "@material-ui/core";
+import { FiCode } from "react-icons/fi";
+
+export const FiCodeStyled = styled(FiCode)`
+  animation: rotationIcon 2s linear infinite;
+
+  @keyframes rotationIcon {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 export const Container = styled.main`
   width: 100vw;
@@ -106,4 +120,8 @@ export const Span = styled.p`
   margin-left: 10px;
   color: #2ea5d5;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

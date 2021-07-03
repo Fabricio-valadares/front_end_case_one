@@ -24,6 +24,9 @@ const FormUpdate = ({ setOpen, user_id, listUser, nameUser }: IData) => {
   const [error, setError] = useState(false);
   const [valid, setValid] = useState(false);
 
+  const [changeInput, setChangeInput] = useState("");
+  const [confirmationPassword, setConfirmationPassword] = useState("");
+
   const token = stringToken
     .split("")
     .filter((word) => word !== '"')
@@ -32,6 +35,7 @@ const FormUpdate = ({ setOpen, user_id, listUser, nameUser }: IData) => {
   const schema = yup.object().shape({
     name: yup.string(),
     email: yup.string().email("E-mail inválido"),
+    cpf: yup.string(),
     password: yup.string(),
     confirmationPassword: yup
       .string()
@@ -49,31 +53,42 @@ const FormUpdate = ({ setOpen, user_id, listUser, nameUser }: IData) => {
 
   const dataSubmit = (data: IDataForm) => {
     reset();
-    const dataFinal = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    };
 
-    api
-      .put(`/user/update/${user_id}`, dataFinal, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        if (listUser !== undefined) {
+    if (
+      data.name === undefined &&
+      data.email === undefined &&
+      data.cpf === undefined &&
+      data.password === undefined
+    ) {
+      setOpen(false);
+    } else {
+      const dataFinal = {
+        name: data.name === "" ? undefined : data.name,
+        email: data.email === "" ? undefined : data.email,
+        cpf: data.cpf === "" ? undefined : data.cpf,
+        password: data.password === "" ? undefined : data.password,
+      };
+
+      api
+        .put(`/user/update/${user_id}`, dataFinal, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          if (listUser !== undefined) {
+            setValid(true);
+            listUser();
+          }
           setValid(true);
-          listUser();
-        }
-        setValid(true);
-        nameUser(response.data);
-        setDataUserContext(response.data);
-      })
-      .catch((error) => {
-        if (!(error instanceof TypeError)) {
-          setError(true);
-          console.log(error);
-        }
-      });
+          nameUser(response.data);
+          setDataUserContext(response.data);
+        })
+        .catch((error) => {
+          if (!(error instanceof TypeError)) {
+            setError(true);
+            console.log(error);
+          }
+        });
+    }
   };
 
   useEffect(() => {
@@ -123,9 +138,16 @@ const FormUpdate = ({ setOpen, user_id, listUser, nameUser }: IData) => {
             />
             <p>{errors.email?.message}</p>
             <TextFieldStyled
+              {...register("cpf")}
+              id="standard-basic"
+              label="CPF"
+            />
+            <p>{errors.cpf?.message}</p>
+            <TextFieldStyled
               {...register("password")}
               id="standard-basic"
               label="Senha"
+              onChange={(e) => setChangeInput(e.target.value)}
               type="password"
             />
             <p>{errors.password?.message}</p>
@@ -134,9 +156,22 @@ const FormUpdate = ({ setOpen, user_id, listUser, nameUser }: IData) => {
               id="standard-basic"
               label="Confirmação Senha"
               type="password"
+              onChange={(e) => setConfirmationPassword(e.target.value)}
             />
-            <p>{errors.confirmationPassword?.message}</p>
-            <Button type="submit">CONFIRMAR</Button>
+            <p>
+              {confirmationPassword !== changeInput
+                ? "Senha não compativel"
+                : ""}
+            </p>
+            <Button
+              type={
+                changeInput === "" || confirmationPassword !== ""
+                  ? "submit"
+                  : "button"
+              }
+            >
+              CONFIRMAR
+            </Button>
           </DivFiled>
           <Text onClick={() => setOpen(false)}>Voltar</Text>
         </DivContent>

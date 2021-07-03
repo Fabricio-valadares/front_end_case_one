@@ -9,6 +9,7 @@ import {
   Title,
   DivFiled,
   DivForm,
+  FiCodeStyled
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { Background } from "../../components/Backgound";
@@ -24,6 +25,8 @@ const ForgotPassword = () => {
   const history = useHistory();
   const [error, setError] = useState(false);
   const [valid, setValid] = useState(false);
+
+  const [viewIcon, setViewIcon] = useState(false);
 
   const fieldRequired = "Campo Obrigatório";
 
@@ -41,6 +44,7 @@ const ForgotPassword = () => {
   });
 
   const dataSubmit = (data: IDataForgot) => {
+    setViewIcon(true);
     reset();
     api
       .post("/user/forgot", data)
@@ -54,6 +58,7 @@ const ForgotPassword = () => {
   };
 
   useEffect(() => {
+    setViewIcon(false);
     if (error) {
       toast.error(`😵 Error no pedido`, {
         position: "top-right",
@@ -94,7 +99,9 @@ const ForgotPassword = () => {
                 label="Insira seu e-mail"
               />
               <p>{errors.email?.message}</p>
-              <Button type="submit">ENVIAR CÓDIGO</Button>
+              <Button type="submit">
+                {viewIcon ? <FiCodeStyled color="#fff" size={25} /> : "ENVIAR CÓDIGO"}
+              </Button>
             </DivFiled>
             <Text>
               Não possui uma conta?{" "}

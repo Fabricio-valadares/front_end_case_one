@@ -106,7 +106,7 @@ const Login = () => {
                 id="standard-basic"
                 label="Email/CPF"
               />
-              <p>{errors.email?.message}</p>
+              <p>{errors.emailOrCPF?.message}</p>
               <TextFieldStyled
                 {...register("password")}
                 id="standard-basic"

@@ -9,12 +9,11 @@ export const Container = styled.main`
 export const DivForm = styled.div`
   width: 28vw;
   min-width: 380px;
-  height: 75vh;
+  height: auto;
   min-height: 84%;
-  max-height: 500px;
 
   background-color: #fff;
-  padding: 40px 55px 80px 55px;
+  padding: 25px 55px 37px 55px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 20px;
 

@@ -8,7 +8,6 @@ export const DivForm = styled.div`
   max-height: 536px;
 
   background-color: #fff;
-  /* padding: 48px 55px 80px 55px; */
   padding: 30px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 20px;

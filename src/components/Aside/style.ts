@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MdDashboard, MdEmail, MdShoppingCart } from "react-icons/md";
+import { MdDashboard } from "react-icons/md";
 
 export const Container = styled.div`
   width: 18.6%;

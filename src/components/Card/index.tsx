@@ -96,7 +96,7 @@ const Card = () => {
                 <DataLine>{element.name}</DataLine>
                 <DataLine>{element.email}</DataLine>
                 <DataLine>
-                  {format(new Date(element.created_at), "MM/dd/yyyy")}
+                  {format(new Date(element.created_at), "dd/MM/yyyy")}
                 </DataLine>
                 <DataLine>
                   <RiToolsFill

@@ -9,7 +9,7 @@ import {
   Title,
   DivFiled,
   DivForm,
-  FiCodeStyled
+  FiCodeStyled,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { Background } from "../../components/Backgound";
@@ -31,7 +31,10 @@ const ForgotPassword = () => {
   const fieldRequired = "Campo Obrigatório";
 
   const schema = yup.object().shape({
-    email: yup.string().email().required(fieldRequired),
+    email: yup
+      .string()
+      .email("Não e um formato de e-mail")
+      .required(fieldRequired),
   });
 
   const {
@@ -100,7 +103,11 @@ const ForgotPassword = () => {
               />
               <p>{errors.email?.message}</p>
               <Button type="submit">
-                {viewIcon ? <FiCodeStyled color="#fff" size={25} /> : "ENVIAR CÓDIGO"}
+                {viewIcon ? (
+                  <FiCodeStyled color="#fff" size={25} />
+                ) : (
+                  "ENVIAR CÓDIGO"
+                )}
               </Button>
             </DivFiled>
             <Text>

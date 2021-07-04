@@ -55,10 +55,10 @@ const FormUpdate = ({ setOpen, user_id, listUser, nameUser }: IData) => {
     reset();
 
     if (
-      data.name === undefined &&
-      data.email === undefined &&
-      data.cpf === undefined &&
-      data.password === undefined
+      (data.name === undefined || data.name === "") &&
+      (data.email === undefined || data.email === "") &&
+      (data.cpf === undefined || data.cpf === "") &&
+      (data.password === undefined || data.password === "")
     ) {
       setOpen(false);
     } else {
